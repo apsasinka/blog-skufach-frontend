@@ -112,7 +112,7 @@ export const AddPost = () => {
           <Button variant="contained" color="error" onClick={onClickRemoveImage}>
             Удалить
           </Button>
-          <img className={styles.image} src={`http://89.104.67.44:4444${imageUrl}`} alt="Uploaded" />
+          <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt="Uploaded" />
         </>
       )}
       <br />

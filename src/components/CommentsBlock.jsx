@@ -31,7 +31,7 @@ export const CommentsBlock = ({ items, children, isLoading = true, onDelete }) =
                 {isLoading ? (
                   <Skeleton variant="circular" width={40} height={40} />
                 ) : (
-                  <Avatar alt={obj.user.fullName} src={obj.user.avatarUrl ? `http://89.104.67.44:4444${obj.user.avatarUrl}` : ''} />
+                  <Avatar alt={obj.user.fullName} src={obj.user.avatarUrl ? `http://localhost:4444${obj.user.avatarUrl}` : ''} />
                 )}
               </ListItemAvatar>
               {isLoading ? (
