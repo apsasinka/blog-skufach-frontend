@@ -70,5 +70,3 @@ export const Index = ({ postId, avatarUrl, setComments, userData }) => {
     </>
   );
 };
-
-// Ваш компонент FullPost.jsx остается таким же как и прежде
