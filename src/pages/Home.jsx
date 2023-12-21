@@ -54,7 +54,7 @@ export const Home = () => {
               <Post
                 id={obj._id}
                 title={obj.title}
-                imageUrl={obj.imageUrl ? `http://localhost:4444${obj.imageUrl}` : ''}
+                imageUrl={obj.imageUrl ? `http://127.0.0.1:4444/api${obj.imageUrl}` : ''}
                 user={obj.user}
                 createdAt={obj.createdAt}
                 commentsCount={obj.commentsCount}

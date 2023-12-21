@@ -55,7 +55,7 @@ export const FullPost = () => {
       <Post
         id={_id}
         title={title}
-        imageUrl={imageUrl ? `http://localhost:4444${imageUrl}` : ''}
+        imageUrl={imageUrl ? `http://127.0.0.1:4444/api${imageUrl}` : ''}
         user={user ? { fullName: user.fullName, email: user.email, avatarUrl: user.avatarUrl } : null}
         createdAt={user ? user.createdAt : null}
         viewsCount={viewsCount}

@@ -13,4 +13,7 @@ export const theme = createTheme({
       fontWeight: 400,
     },
   },
+  secondary: {
+    main: "#ff5722",
+  },
 });
