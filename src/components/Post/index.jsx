@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import IconButton from '@mui/material/IconButton';
@@ -7,6 +7,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import { useDispatch } from 'react-redux';
+import axios from '../../axios';
+
+import lightThemeStyles from './theme/lightTheme.module.scss';
+import darkThemeStyles from './theme/darkTheme.module.scss';
+import pinkThemeStyles from './theme/pinkTheme.module.scss';
+import greenThemeStyles from './theme/greenTheme.module.scss';
 
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
@@ -28,6 +34,44 @@ export const Post = ({
   isEditable,
   isCurrentUserAdmin,
 }) => {
+  const [currentTheme, setCurrentTheme] = useState('light');
+  const [themeLoaded, setThemeLoaded] = useState(false);
+
+  const themeStyles = {
+    light: lightThemeStyles,
+    dark: darkThemeStyles,
+    pink: pinkThemeStyles,
+    green: greenThemeStyles,
+  };
+
+  useEffect(() => {
+    const fetchCurrentTheme = async () => {
+      try {
+        const response = await axios.get('/gettheme');
+
+        if (response.status === 200) {
+          const { currentTheme } = response.data;
+          setCurrentTheme(currentTheme);
+          applyThemeStyles(currentTheme);
+        } else {
+          console.error('Ошибка при получении текущей темы');
+        }
+      } catch (error) {
+        console.error('Ошибка при получении текущей темы:', error);
+      }
+    };
+
+    fetchCurrentTheme();
+  }, []);
+
+  const applyThemeStyles = (theme) => {
+    try {
+      setThemeLoaded(true);
+    } catch (error) {
+      console.error('Ошибка при загрузке стилей темы:', error);
+    }
+  };
+
   const dispatch = useDispatch();
   if (isLoading) {
     return <PostSkeleton />;
@@ -41,10 +85,12 @@ export const Post = ({
 
   const showEditButtons = isEditable || isCurrentUserAdmin;
 
+  const selectedThemeStyles = themeStyles[currentTheme];
+
   return (
-    <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
+    <div className={clsx(selectedThemeStyles.root, { [selectedThemeStyles.rootFull]: isFullPost })}>
       {showEditButtons && (
-        <div className={styles.editButtons}>
+        <div className={selectedThemeStyles.editButtons}>
           <Link to={`/posts/${id}/edit`}>
             <IconButton color="primary">
               <EditIcon />
@@ -57,26 +103,26 @@ export const Post = ({
       )}
       {imageUrl && (
         <img
-          className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
+          className={clsx(selectedThemeStyles.image, { [selectedThemeStyles.imageFull]: isFullPost })}
           src={imageUrl}
           alt={title}
         />
       )}
-      <div className={styles.wrapper}>
+      <div className={selectedThemeStyles.wrapper}>
         <UserInfo {...user} additionalText={createdAt} />
-        <div className={styles.indention}>
-          <h2 className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
+        <div className={selectedThemeStyles.indention}>
+          <h2 className={clsx(selectedThemeStyles.title, { [selectedThemeStyles.titleFull]: isFullPost })}>
             {isFullPost ? title : <Link to={`/posts/${id}`}>{title}</Link>}
           </h2>
-          <ul className={styles.tags}>
+          <ul className={selectedThemeStyles.tags}>
             {tags.map((name) => (
               <li key={name}>
                 <Link to={`/tag/${name}`}>#{name}</Link>
               </li>
             ))}
           </ul>
-          {children && <div className={styles.content}>{children}</div>}
-          <ul className={styles.postDetails}>
+          {children && <div className={selectedThemeStyles.content}>{children}</div>}
+          <ul className={selectedThemeStyles.postDetails}>
             <li>
               <EyeIcon />
               <span>{viewsCount}</span>

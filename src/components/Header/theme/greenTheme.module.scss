@@ -1,0 +1,47 @@
+.root {
+    background-color: #9AC6C2;
+    padding: 10px 0;
+    border-bottom: 1px solid #6c9a96;
+    margin-bottom: 30px;
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    background-color: #1B1E25;
+    color: #fff;
+    font-weight: 700;
+    line-height: 35px;
+    text-transform: uppercase;
+    letter-spacing: 0.15px;
+    border-radius: 5px;
+    padding: 0 10px;
+    text-decoration: none;
+
+    &:hover {
+        background-color: #2b6b4b;
+    }
+}
+
+.buttons {
+    button {
+        margin-left: 10px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+.buttonOut {
+    color: #0B3A36	 !important;
+    border-color: #0B3A36	 !important;
+}
+.button {
+    background-color: #0B3A36	 !important;
+}
+.buttonPost {
+    background-color: #0B3A36	 !important;
+}
